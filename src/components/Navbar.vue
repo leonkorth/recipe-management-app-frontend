@@ -10,7 +10,7 @@
           <router-link class="nav-link" to="/">Home</router-link>
           <router-link class="nav-link" to="/about">About</router-link>
           <router-link class="nav-link" to="/ingredients">Ingredients</router-link>
-          <router-link class="nav-link" to="recipes">Reciples</router-link>
+          <router-link class="nav-link" to="recipes">Recipes</router-link>
         </div>
       </div>
     </div>
