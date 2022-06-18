@@ -31,4 +31,15 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.logo{
+  width: 25px;
+  height: auto;
+}
+
+.container{
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+}
 </style>
