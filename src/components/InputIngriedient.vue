@@ -2,22 +2,22 @@
 <div class="container">
   <form autocomplete="off">
     <div class="form-group row">
-      <div class="col-sm-auto container">
+      <div class="mb-3">
         <input autocomplete="false" v-model="nameField" type="text" class="form-control" id="ingInput" placeholder="Name der Zutat">
       </div>
     </div>
     <div class="form-row align-items-center container">
-      <div class="col-auto my-1">
+      <div class="mb-3">
         <label class="mr-sm-2" for="inlineFormCustomSelect"></label>
         <select  v-model="isVeganField" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
           <option value="" selected disabled>Bitte wählen Sie: </option>
-          <option selected>nicht vegetarisch</option>
+          <option>nicht vegetarisch</option>
           <option>vegetarisch</option>
           <option>vegan</option>
         </select>
       </div>
     </div>
-    <div class="form-group row container" >
+    <div class="mb-3" >
       <div class="col-sm-15">
         <button type="submit" class="btn btn-primary" @click="save()">Zutat hinzufügen</button>
       </div>
