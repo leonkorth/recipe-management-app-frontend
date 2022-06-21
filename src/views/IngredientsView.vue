@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import InputIng from "@/components/InputIngriedient"
+import InputIng from "@/components/IngriedentComponents/InputIngriedient"
 
 export default {
   name: 'IngredientsView',
