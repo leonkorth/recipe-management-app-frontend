@@ -151,7 +151,7 @@ export default {
     isRecipeVegan (recipeId) {
       if(this.allRecipeIngredients.length === 0) return '               '
       const recipeIngredientList = this.allRecipeIngredients.filter(recipeIngredient => recipeIngredient.id.recipeId === recipeId)
-      if(recipeIngredientList.some(recipeIngredient => recipeIngredient.id.recipeId === recipeId) === false) { return 'keine Zutaten' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegan === true)) { return 'vegan' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegetarian === true)) { return 'vegetarisch' } else { return 'nicht vegetarisch' }
+      if(!recipeIngredientList.some(recipeIngredient => recipeIngredient.id.recipeId === recipeId)) { return 'keine Zutaten' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegan)) { return 'vegan' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegetarian)) { return 'vegetarisch' } else { return 'nicht vegetarisch' }
     }
 
   },

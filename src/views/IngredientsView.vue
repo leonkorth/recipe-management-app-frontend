@@ -2,7 +2,10 @@
   <h1>Zutaten</h1>
   <div>
     <div container>
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Zutat hinzufügen</button>
+      <div class="container">
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Zutat hinzufügen</button>
+
+      </div>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasRightLabel">Fügen Sie hier eine Zutat hinzu: </h5>
@@ -13,6 +16,48 @@
         </div>
       </div>
     </div>
+  <br>
+   <div class="container">
+     <div class="container">
+       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+         Preis berechnen
+       </button>
+     </div>
+
+
+     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+       <div class="offcanvas-header">
+         <h5 class="offcanvas-title" id="offcanvasExampleLabel">Preis berechnen</h5>
+         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+       </div>
+       <div class="offcanvas-body">
+         <div>
+           Berechnen Sie hier den Preis für die Zutat ihrer Wahl. Die Abfrage erfolgt über die <a href="https://spoonacular.com/" target="_blank" > Spoonacular</a> Datenbank.
+         </div>
+
+
+         <form class="form-inline">
+           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Zutat: </label>
+           <select v-model="selected">
+             <option v-for="ingredient in this.ingredients" :value="ingredient.name">
+               {{ capitalizeFirstLetter(ingredient.name) }}
+             </option>
+           </select>
+
+
+
+         </form>
+         <div class="container">
+           <ShowCalories :ing-name="capitalizeFirstLetter(this.selected)"></ShowCalories>
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+
+
+
     <br>
     <div class="container-fluid container">
       <ol class="list-group list-group-numbered">
@@ -38,14 +83,16 @@
 
 <script>
 import InputIng from "@/components/IngriedentComponents/InputIngriedient"
+import ShowCalories from "@/components/IngriedentComponents/ShowCalories"
 
 export default {
   name: 'IngredientsView',
-  components: {InputIng},
+  components: {ShowCalories, InputIng},
 
   data () {
     return {
-      ingredients: []
+      ingredients: [],
+      selected: ''
 
     }
 
@@ -57,6 +104,7 @@ export default {
       } else if (!ingredient.vegan && ingredient.vegetarian) {
         return require('../assets/vegetarian.png')
       } else return require('../assets/not_vegie.jpeg')
+
     },
     capitalizeFirstLetter (string) {
       // https://www.codegrepper.com/code-examples/javascript/make+first+letter+capital+vue
@@ -77,6 +125,7 @@ export default {
         this.ingredients.push(ingredient)
       }))
       .catch(error => console.log('error', error))
+
   }
 }
 </script>
