@@ -43,12 +43,9 @@
                {{ capitalizeFirstLetter(ingredient.name) }}
              </option>
            </select>
-
-
-
          </form>
          <div class="container">
-           <ShowCalories :ing-name="capitalizeFirstLetter(this.selected)"></ShowCalories>
+           <ShowPrice :ing-name="capitalizeFirstLetter(this.selected)"></ShowPrice>
          </div>
        </div>
      </div>
@@ -63,7 +60,7 @@
       <ol class="list-group list-group-numbered">
         <div class="row row-cols-1 row-cols-md-4 g-4 container">
           <div class="col" v-for="ingredient in ingredients" :key="ingredient.id">
-            <li class="list-group-item d-flex justify-content-between align-items-start">
+            <li class="list-group-item d-flex justify-content-between align-items-start ingredientCard">
               <div class="ms-2 me-auto">
                 <div class="fw-bold ">{{ capitalizeFirstLetter(ingredient.name) }}</div>
                 <p>Diese Zutat ist
@@ -83,11 +80,11 @@
 
 <script>
 import InputIng from "@/components/IngriedentComponents/InputIngriedient"
-import ShowCalories from "@/components/IngriedentComponents/ShowCalories"
+import ShowPrice from "@/components/IngriedentComponents/ShowPrice"
 
 export default {
   name: 'IngredientsView',
-  components: {ShowCalories, InputIng},
+  components: {ShowPrice, InputIng},
 
   data () {
     return {

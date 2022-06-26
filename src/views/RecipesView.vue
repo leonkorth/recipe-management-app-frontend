@@ -1,16 +1,29 @@
 <template>
   <h1>Rezepte</h1>
 
+  <div class="container">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Rezept hinzufügen</button>
 
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Rezept hinzufügen: </h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <InputRecipe></InputRecipe>
+      </div>
+    </div>
+  </div>
+  <br>
   <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" v-for="recipe in recipes" :key="recipe.id">
-        <div class="card">
+        <div class="card recipeCard">
           <div class="card-body">
             <h5 class="card-title">{{ capitalizeFirstLetter(recipe.name) }}</h5>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-if="loaded"> {{isRecipeVegan(recipe.id)}}</li>
+            <li class="list-group-item isRecipeVeganField" v-if="loaded"> {{isRecipeVegan(recipe.id)}}</li>
             <li class="list-group-item" v-if="!loaded">Platzhalter</li>
             <li class="list-group-item">Zubereitungszeit: {{recipe.prepTime}} </li>
             <li class="list-group-item">{{recipe.servings}} Portionen</li>
@@ -69,8 +82,10 @@
 </template>
 
 <script>
+import InputRecipe from "@/components/RecipeComponents/InputRecipe"
 export default {
   name: 'RecipesView',
+  components: {InputRecipe},
   data () {
     return {
       loaded: false,

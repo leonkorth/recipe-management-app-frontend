@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "ShowCalories",
+  name: "ShowPrice",
   props: ['ingName'],
   data () {
     return {

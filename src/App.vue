@@ -37,9 +37,7 @@ nav a.router-link-exact-active {
   height: auto;
 }
 
-.container{
-  width: 70%;
-  margin: auto;
-  overflow: hidden;
-}
+
+
+
 </style>
