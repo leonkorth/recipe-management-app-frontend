@@ -194,5 +194,9 @@ export default {
 </script>
 
 <style scoped>
+.offcanvas{
+  width: 500px;
+}
+
 
 </style>
