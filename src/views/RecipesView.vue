@@ -66,7 +66,7 @@
           <h3>Zutaten: </h3>
           <div>
             <ol class="list-group" v-for="recipeIngredient in recipeIngredientsForChosenRecipe" :key="recipeIngredient.id">
-              <li class="list-group-item">{{recipeIngredient.amount}}{{recipeIngredient.unit.replace(/['"]+/g, '')}}  {{capitalizeFirstLetter(recipeIngredient.ingredientEntity.name)}}</li>
+              <li class="list-group-item">{{recipeIngredient.amount}} {{recipeIngredient.unit.replace(/['"]+/g, '')}}  {{capitalizeFirstLetter(recipeIngredient.ingredientEntity.name)}}</li>
             </ol>
           </div>
         </div>

@@ -71,7 +71,7 @@
                 <b>{{ capitalizeFirstLetter(ingredient.name) }}</b>
               </div>
               <br>
-              <div class="col-sm-2 container">
+              <div class="col-sm-3 container">
                 <label class="visually-hidden" for="specificSizeInputGroupUsername"></label>
                 <div class="input-group">
                   <input :name="ingredient.id" class="form-control"  type="number" required>

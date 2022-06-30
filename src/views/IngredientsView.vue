@@ -1,28 +1,46 @@
 <template>
   <h1>Zutaten</h1>
-  <div>
-    <div container>
-      <div class="container">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Zutat hinzufügen</button>
 
-      </div>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasRightLabel">Fügen Sie hier eine Zutat hinzu: </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+
+
+
+
+
+
+  <div>
+    <div class="container">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-auto">
+            <div class="container">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Preis berechnen
+              </button>
+            </div>
+          </div>
+          <div class="col-md-auto">
+            <div class="">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Zutat hinzufügen</button>
+            </div>
+            <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Fügen Sie hier eine Zutat hinzu: </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <InputIng></InputIng>
+              </div>
+            </div>
+          </div>
+
+
         </div>
-        <div class="offcanvas-body">
-          <InputIng></InputIng>
-        </div>
       </div>
-    </div>
+
+
   <br>
-   <div class="container">
-     <div class="container">
-       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-         Preis berechnen
-       </button>
-     </div>
+
 
 
      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -52,14 +70,26 @@
    </div>
 
 
-
-
+    <div class="container">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked="checked" v-model="filterCrit">
+        <label class="form-check-label" for="inlineRadio1">alle Zutaten</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="vegetarian" v-model="filterCrit">
+        <label class="form-check-label" for="inlineRadio2">vegetarisch</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="vegan" v-model="filterCrit">
+        <label class="form-check-label" for="inlineRadio3">vegan</label>
+      </div>
+    </div>
 
     <br>
     <div class="container-fluid container">
       <ol class="list-group list-group-numbered">
         <div class="row row-cols-1 row-cols-md-4 g-4 container">
-          <div class="col" v-for="ingredient in ingredients" :key="ingredient.id">
+          <div class="col" v-for="ingredient in filterIngredients(this.filterCrit)" :key="ingredient.id">
             <li class="list-group-item d-flex justify-content-between align-items-start ingredientCard">
               <div class="ms-2 me-auto">
                 <div class="fw-bold ">{{ capitalizeFirstLetter(ingredient.name) }}</div>
@@ -89,7 +119,8 @@ export default {
   data () {
     return {
       ingredients: [],
-      selected: ''
+      selected: '',
+      filterCrit: 'all'
 
     }
 
@@ -106,6 +137,16 @@ export default {
     capitalizeFirstLetter (string) {
       // https://www.codegrepper.com/code-examples/javascript/make+first+letter+capital+vue
       return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    filterIngredients (filterCrit){
+      switch (filterCrit){
+        case 'all':
+          return this.ingredients
+        case 'vegetarian':
+          return this.ingredients.filter(ing => ing.vegetarian === true)
+        case 'vegan':
+          return this.ingredients.filter(ing => ing.vegan === true)
+      }
     }
 
   },
