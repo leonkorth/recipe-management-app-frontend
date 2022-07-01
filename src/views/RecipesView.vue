@@ -1,5 +1,6 @@
 <template>
   <h1>Rezepte</h1>
+  <input type="text" v-model="searchCrit" placeholder="Search recipes..." />
 
   <div class="container">
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Rezept hinzufügen</button>
@@ -17,7 +18,7 @@
   <br>
   <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col" v-for="recipe in recipes" :key="recipe.id">
+      <div class="col" v-for="recipe in filterRecipes(this.recipes)" :key="recipe.id">
         <div class="card recipeCard">
           <div class="card-body">
             <h5 class="card-title">{{ capitalizeFirstLetter(recipe.name) }}</h5>
@@ -89,6 +90,7 @@ export default {
   data () {
     return {
       loaded: false,
+      searchCrit: "",
       recipes: [],
       ingredientsIds: [],
       recipeId: '',
@@ -158,15 +160,22 @@ export default {
           this.allRecipeIngredients.push(recipeIngredient)
         }))
         .catch(error => console.log('error', error))
-
-
-
     },
 
     isRecipeVegan (recipeId) {
       if(this.allRecipeIngredients.length === 0) return '               '
       const recipeIngredientList = this.allRecipeIngredients.filter(recipeIngredient => recipeIngredient.id.recipeId === recipeId)
       if(!recipeIngredientList.some(recipeIngredient => recipeIngredient.id.recipeId === recipeId)) { return 'keine Zutaten' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegan)) { return 'vegan' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegetarian)) { return 'vegetarisch' } else { return 'nicht vegetarisch' }
+    },
+    filterRecipes (searchCrit) {
+      if (searchCrit.length < 1) return this.recipes
+      const result = []
+      for (const recipe of this.recipes) {
+        if (recipe.name.toLowerCase().includes(this.searchCrit.toLowerCase())){
+          result.push(recipe)
+        }
+      }
+      return result
     }
 
   },

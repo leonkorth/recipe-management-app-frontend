@@ -69,6 +69,7 @@
      </div>
    </div>
 
+    <input type="text" v-model="searchCrit" placeholder="Search recipes..." />
 
     <div class="container">
       <div class="form-check form-check-inline">
@@ -120,7 +121,8 @@ export default {
     return {
       ingredients: [],
       selected: '',
-      filterCrit: 'all'
+      filterCrit: 'all',
+      searchCrit: ""
 
     }
 
@@ -138,17 +140,26 @@ export default {
       // https://www.codegrepper.com/code-examples/javascript/make+first+letter+capital+vue
       return string.charAt(0).toUpperCase() + string.slice(1)
     },
-    filterIngredients (filterCrit){
+    filterIngredients (filterCrit, searchCrit){
+      const result = []
       switch (filterCrit){
         case 'all':
-          return this.ingredients
+          result.push(this.ingredients)
+          break
         case 'vegetarian':
-          return this.ingredients.filter(ing => ing.vegetarian === true)
+          result.push(this.ingredients.filter(ing => ing.vegetarian === true))
+          break
         case 'vegan':
-          return this.ingredients.filter(ing => ing.vegan === true)
+          result.push(this.ingredients.filter(ing => ing.vegan === true))
       }
+      if (searchCrit.length < 1) return result
+      for (const ingredient of this.ingredients) {
+        if (ingredient.name.toLowerCase().includes(this.searchCrit.toLowerCase())){
+          result.push(ingredient)
+        }
+      }
+      return result
     }
-
   },
   mounted () {
     const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/ingredients'
