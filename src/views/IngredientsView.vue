@@ -138,7 +138,7 @@ export default {
     },
     capitalizeFirstLetter (string) {
       // https://www.codegrepper.com/code-examples/javascript/make+first+letter+capital+vue
-      return string?.charAt(0).toUpperCase() + string.slice(1)
+      return string?.charAt(0).toUpperCase() + string?.slice(1)
     },
     filterIngredients (filterCrit, searchCrit){
       const result = []
