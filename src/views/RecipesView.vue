@@ -168,7 +168,7 @@ export default {
       if(!recipeIngredientList.some(recipeIngredient => recipeIngredient.id.recipeId === recipeId)) { return 'keine Zutaten' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegan)) { return 'vegan' } else if(recipeIngredientList.every(recipeIngredient => recipeIngredient.id.recipeId === recipeId & recipeIngredient.ingredientEntity.vegetarian)) { return 'vegetarisch' } else { return 'nicht vegetarisch' }
     },
     filterRecipes (searchCrit) {
-      if (searchCrit.length < 1) return this.recipes
+      if (searchCrit?.length < 1) return this.recipes
       const result = []
       for (const recipe of this.recipes) {
         if (recipe.name.toLowerCase().includes(this.searchCrit.toLowerCase())){

@@ -152,7 +152,7 @@ export default {
         case 'vegan':
           result.push(this.ingredients.filter(ing => ing.vegan === true))
       }
-      if (searchCrit.length < 1) return result
+      if (searchCrit?.length < 1) return result
       for (const ingredient of this.ingredients) {
         if (ingredient.name.toLowerCase().includes(this.searchCrit.toLowerCase())){
           result.push(ingredient)
