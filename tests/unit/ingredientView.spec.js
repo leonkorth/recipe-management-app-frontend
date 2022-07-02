@@ -31,7 +31,7 @@ describe('Testing IngredientsView.vue',() => {
 
   })
 
-  it('should have 1 person card', async () => {
+  it('should have 1 ingredient card', async () => {
 
     // when
     const wrapper = shallowMount(IngredientsView)

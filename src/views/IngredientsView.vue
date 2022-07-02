@@ -90,7 +90,7 @@
     <div class="container-fluid container">
       <ol class="list-group list-group-numbered">
         <div class="row row-cols-1 row-cols-md-4 g-4 container">
-          <div class="col" v-for="ingredient in filterIngredients(this.filterCrit)" :key="ingredient.id">
+          <div class="col" v-for="ingredient in filterIngredients(this.filterCrit, this.searchCrit)" :key="ingredient.id">
             <li class="list-group-item d-flex justify-content-between align-items-start ingredientCard">
               <div class="ms-2 me-auto">
                 <div class="fw-bold ">{{ capitalizeFirstLetter(ingredient.name) }}</div>
@@ -141,24 +141,14 @@ export default {
       return string?.charAt(0).toUpperCase() + string?.slice(1)
     },
     filterIngredients (filterCrit, searchCrit){
-      const result = []
       switch (filterCrit){
         case 'all':
-          result.push(this.ingredients)
-          break
+          return this.ingredients.filter(ing => ing.name.toLocaleLowerCase().includes(searchCrit.toLocaleLowerCase()))
         case 'vegetarian':
-          result.push(this.ingredients.filter(ing => ing.vegetarian === true))
-          break
+          return this.ingredients.filter(ing => ing.vegetarian === true).filter(ing => ing.name.toLowerCase().includes(searchCrit.toLocaleLowerCase()))
         case 'vegan':
-          result.push(this.ingredients.filter(ing => ing.vegan === true))
+          return this.ingredients.filter(ing => ing.vegan === true).filter(ing => ing.name.toLocaleLowerCase().includes(searchCrit.toLocaleLowerCase()))
       }
-      if (searchCrit?.length < 1) return result
-      for (const ingredient of this.ingredients) {
-        if (ingredient.name.toLowerCase().includes(this.searchCrit.toLowerCase())){
-          result.push(ingredient)
-        }
-      }
-      return result
     }
   },
   mounted () {
