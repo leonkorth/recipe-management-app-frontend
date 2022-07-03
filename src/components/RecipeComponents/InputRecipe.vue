@@ -24,17 +24,8 @@
           <label for="exampleFormControlSelect1">Portionen:</label>
           <input id="servingsField" v-model="servingsField" class="form-control" max="100" min="1" type="number">
           <div class="invalid-feedback">
-            Bitte geben Sie die Portionen an.
+            Bitte geben Sie eine Zahl zwischen 1 und 100 an.
           </div>
-        </div>
-      </div>
-      <div class="container">
-        <label for="durationField">Dauer:</label>
-        <input id="durationField" v-model="durationField" class="form-control" pattern="[0-9]{2}:[0-9]{2}"
-               placeholder="00:00"
-               required title="Schreiben Sie die Zeit im folgendem Format hh:mm" type="text">
-        <div class="invalid-feedback">
-          Bitte geben Sie die Zubereitungszeit im "hh:mm" Format an.
         </div>
       </div>
       <form>
@@ -133,7 +124,7 @@ export default {
         const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes'
         const data = {
           name: this.nameField,
-          prepTime: this.durationField.toString().concat(':00'),
+          prepTime: '00:00:00',
           servings: this.servingsField,
           instructions: this.instructionsField
 
@@ -173,7 +164,7 @@ export default {
           recipeEntity: {
             id: returnedRecipeObject.id,
             name: returnedRecipeObject.name,
-            prepTime: returnedRecipeObject.prepTime,
+            prepTime: '00:00:00',
             servings: returnedRecipeObject.servings,
             instructions: returnedRecipeObject.instructions
           },

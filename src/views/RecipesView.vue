@@ -36,7 +36,6 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item isRecipeVeganField" v-if="loaded"> {{isRecipeVegan(recipe.id)}}</li>
             <li class="list-group-item" v-if="!loaded">Platzhalter</li>
-            <li class="list-group-item">Zubereitungszeit: {{recipe.prepTime}}</li>
             <li class="list-group-item">{{recipe.servings}} Portionen</li>
           </ul>
           <div class="card-body">
@@ -68,7 +67,6 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"></li>
             <li class="list-group-item">{{isRecipeVegan(chosenRecipe.id)}}</li>
-            <li class="list-group-item">Zubereitungszeit: {{this.chosenRecipe.prepTime}}</li>
             <li class="list-group-item">{{this.chosenRecipe.servings}} Portionen</li>
             <li class="list-group-item"></li>
           </ul>
@@ -223,10 +221,7 @@ export default {
       })
       .then(x => { this.loaded = true })
       .catch(error => console.log('error', error))
-
   }
-
-
 
 }
 </script>
