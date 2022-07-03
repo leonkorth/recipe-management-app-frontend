@@ -169,6 +169,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@import "src/assets/style/overall.scss";
+
+$button: #00CC99;
+
+input {
+  padding: 5px;
+  margin: 10px;
+}
 
 </style>
