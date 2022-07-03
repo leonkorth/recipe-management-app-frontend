@@ -33,12 +33,8 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
-
-
   <br>
 
 
@@ -68,9 +64,14 @@
        </div>
      </div>
    </div>
-
-    <input type="text" v-model="searchCrit" placeholder="Search recipes..." />
-
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <div class="container" >
+          <input  class="form-control" type="text" v-model="searchCrit" placeholder="Zutaten suchen..." />
+        </div>
+      </div>
+    </div>
+    <br>
     <div class="container">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked="checked" v-model="filterCrit">
