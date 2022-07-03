@@ -20,7 +20,15 @@ export default {
   color: #2c3e50;
   background-color: $bg-main;
 }
+br {
+  display: block;
+  margin: 5px 0;
+}
 
+html {
+  height: 100%;
+  background-color: $bg-main;
+}
 h1 {
   color: darkslategrey;
 }
@@ -28,6 +36,7 @@ h1 {
 input {
   margin: 10px;
 }
+
 nav {
   padding: 30px;
   &.a {
@@ -38,6 +47,7 @@ nav {
     }
   }
 }
+
 a{
   &.navbar-brand {
     color: darkslategrey;
@@ -51,26 +61,22 @@ a{
   }
 }
 
-/*
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-*/
 button.btn {
   background-color: $button;
   border-color: $button-border;
   &:hover {
-    background: #0fc499;
+    background: #6ea157;
     border-color: $bg-main;
+  }
+  &:focus {
+    background: #6ea157;
+    border-color: $bg-main;
+    box-shadow: none !important;
   }
 }
 .logo{
   width: 25px;
   height: auto;
 }
-
-
-
 
 </style>

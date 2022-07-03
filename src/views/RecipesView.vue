@@ -1,7 +1,8 @@
 <template>
   <h1>Rezepte</h1>
-  <input type="text" v-model="searchCrit" placeholder="Search recipes..." />
+  <input type="text" v-model="searchCrit" placeholder="Rezepte durchsuchen..." />
 
+  <br>
   <div class="container">
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Rezept hinzufügen</button>
 

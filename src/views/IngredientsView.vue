@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="col-md-auto">
-            <div class="">
+            <div class="container">
               <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Zutat hinzufügen</button>
             </div>
             <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -69,8 +69,9 @@
      </div>
    </div>
 
-    <input type="text" v-model="searchCrit" placeholder="Search recipes..." />
+    <input type="text" v-model="searchCrit" placeholder="Zutaten durchsuchen..." />
 
+    <br>
     <div class="container">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked="checked" v-model="filterCrit">
@@ -170,9 +171,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/style/overall.scss";
-
-$button: #00CC99;
 
 input {
   padding: 5px;
