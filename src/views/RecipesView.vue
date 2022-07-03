@@ -36,7 +36,8 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item isRecipeVeganField" v-if="loaded"> {{isRecipeVegan(recipe.id)}}</li>
             <li class="list-group-item" v-if="!loaded">Platzhalter</li>
-            <li class="list-group-item">Zubereitungszeit: {{recipe.prepTime.substring(0,2)}}h {{recipe.prepTime.substring(3,5)}}min</li>
+            <li class="list-group-item">Zubereitungszeit: {{recipe.prepTime.charAt(0)}}{{recipe.prepTime.charAt(1)}}h {{recipe.prepTime.charAt(3)}}{{recipe.prepTime.charAt(4)}}min</li>
+
             <li class="list-group-item">{{recipe.servings}} Portionen</li>
           </ul>
           <div class="card-body">
@@ -68,7 +69,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"></li>
             <li class="list-group-item">{{isRecipeVegan(chosenRecipe.id)}}</li>
-            <li class="list-group-item">Zubereitungszeit: {{this.chosenRecipe.prepTime.substring(0,2)}}h {{this.chosenRecipe.prepTime.substring(3,5)}}min</li>
+            <li class="list-group-item">Zubereitungszeit: {{this.chosenRecipe.prepTime.charAt(0)}}{{this.chosenRecipe.prepTime.charAt(1)}}h {{this.chosenRecipe.prepTime.charAt(3)}}{{this.chosenRecipe.prepTime.charAt(4)}}min</li>
             <li class="list-group-item">{{this.chosenRecipe.servings}} Portionen</li>
             <li class="list-group-item"></li>
           </ul>
