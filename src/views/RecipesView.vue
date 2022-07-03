@@ -1,11 +1,19 @@
 <template>
   <h1>Rezepte</h1>
-  <input type="text" v-model="searchCrit" placeholder="Rezepte durchsuchen..." />
 
   <br>
   <div class="container">
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Rezept hinzufügen</button>
-
+    <div class="container">
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Rezept hinzufügen</button>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <div class="container" >
+          <input type="text" class="form-control" v-model="searchCrit" placeholder="Rezepte suchen..."/>
+        </div>
+      </div>
+    </div>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel">Rezept hinzufügen: </h5>
@@ -27,7 +35,6 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item isRecipeVeganField" v-if="loaded"> {{isRecipeVegan(recipe.id)}}</li>
             <li class="list-group-item" v-if="!loaded">Platzhalter</li>
-            <li class="list-group-item">Zubereitungszeit: {{recipe.prepTime}} </li>
             <li class="list-group-item">{{recipe.servings}} Portionen</li>
           </ul>
           <div class="card-body">
@@ -37,7 +44,7 @@
               Rezept ansehen
             </button>
             </div>
-            <a href="#" class="card-link">Rezept bearbeiten</a>
+            <button type="button" class="btn btn-primary btn-sm btn btn-danger" @click="deleteRecipe(recipe.id)">Rezept löschen</button>
           </div>
         </div>
       </div>
@@ -57,9 +64,10 @@
         <div class="modal-body">
           <h1> {{ capitalizeFirstLetter(this.chosenRecipe.name) }}</h1>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item"></li>
             <li class="list-group-item">{{isRecipeVegan(chosenRecipe.id)}}</li>
-            <li class="list-group-item">Zubereitungszeit: {{this.chosenRecipe.prepTime}} </li>
             <li class="list-group-item">{{this.chosenRecipe.servings}} Portionen</li>
+            <li class="list-group-item"></li>
           </ul>
           <h3>Anleitung: </h3>
           <p>
@@ -67,9 +75,9 @@
           </p>
           <h3>Zutaten: </h3>
           <div>
-            <ol class="list-group" v-for="recipeIngredient in recipeIngredientsForChosenRecipe" :key="recipeIngredient.id">
+            <ul class="list-group list-group-flush" v-for="recipeIngredient in recipeIngredientsForChosenRecipe" :key="recipeIngredient.id">
               <li class="list-group-item">{{recipeIngredient.amount}} {{recipeIngredient.unit.replace(/['"]+/g, '')}}  {{capitalizeFirstLetter(recipeIngredient.ingredientEntity.name)}}</li>
-            </ol>
+            </ul>
           </div>
         </div>
         <div class="modal-footer">
@@ -148,9 +156,9 @@ export default {
 
     },
 
-    getRecipeIngredients (recipeId) {
+    getRecipeIngredients () {
 
-      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipeIngredients?recipeId=' + recipeId
+      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipeIngredients'
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -177,28 +185,42 @@ export default {
         }
       }
       return result
+    },
+    deleteRecipe (recipeid) {
+      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes/' + recipeid
+      const requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(result)
+          location.reload()
+        })
+        .catch(error => console.log('error', error))
     }
 
   },
-  mounted () {
+    mounted () {
+    this.getRecipeIngredients()
     const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes'
     const requestOptions = {
       method: 'GET',
       redirect: 'follow'
     }
-
     fetch(endpoint, requestOptions)
       .then(response => response.json())
-      .then(result => result.forEach(recipe => {
-        this.getRecipeIngredients(recipe.id)
-        this.recipes.push(recipe)
-      }))
+      .then(result => {
+          result.forEach(recipe => {
+          this.recipes.push(recipe)
+        })
+
+      })
       .then(x => { this.loaded = true })
       .catch(error => console.log('error', error))
-
   }
-
-
 
 }
 </script>

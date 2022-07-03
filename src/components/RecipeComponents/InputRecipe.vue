@@ -1,10 +1,11 @@
 <template>
   <div class="container">
-    <form autocomplete="off" id="recipe-create-form" class="needs-validation" novalidate >
+    <form id="recipe-create-form" autocomplete="off" class="needs-validation" novalidate>
       <div class="form-group row">
         <div class="mb-3">
-          <input id="ingInput" v-model="nameField" autocomplete="false" class="form-control" placeholder="Name des Rezeptes"
-                  type="text" required>
+          <input id="ingInput" v-model="nameField" autocomplete="false" class="form-control"
+                 placeholder="Name des Rezeptes"
+                 required type="text">
           <div class="invalid-feedback">
             Bitte geben Sie einen Namen ein.
           </div>
@@ -12,7 +13,7 @@
         <div class="form-group">
           <label for="instructionsField">Anleitungstext:</label>
           <textarea id="instructionsField" v-model="instructionsField" class="form-control"
-                    rows="3" required></textarea>
+                    required rows="3"></textarea>
           <div class="invalid-feedback">
             Bitte geben Sie einen Anleitungstext ein.
           </div>
@@ -21,40 +22,18 @@
       <div class="form-group row">
         <div class="col-xs-3">
           <label for="exampleFormControlSelect1">Portionen:</label>
-          <select id="servingsField" v-model="servingsField" class="form-control" required>
-            <option disabled selected value="">0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-          </select>
+          <input id="servingsField" v-model="servingsField" class="form-control" max="100" min="1" type="number">
           <div class="invalid-feedback">
-            Bitte geben Sie die Portionen an.
+            Bitte geben Sie eine Zahl zwischen 1 und 100 an.
           </div>
-
-
-          </div>
-
-      </div>
-      <div class="container">
-        <label for="durationField">Dauer:</label>
-        <input id="durationField" v-model="durationField" class="form-control" pattern="[0-9]{2}:[0-9]{2}" placeholder="00:00"
-                title="Schreiben Sie die Zeit im folgendem Format hh:mm" type="text" required>
-        <div class="invalid-feedback">
-          Bitte geben Sie die Zubereitungszeit im "hh:mm" Format an.
         </div>
       </div>
       <form>
         <div class="container from-group">
           <label for="selectedIngredients">Zutat auswählen:</label>
-          <div class="container">
-            <select id="selectedIngredient" v-model="selectedIngredient" class="form-control" required>
-              <option disabled selected>Zutat hinzufügen:</option>
+          <div class="container input-group mb-3">
+            <select id="selectedIngredient" v-model="selectedIngredient" class="form-select">
+              <option value="" disabled selected>Zutat auswählen:</option>
               <option v-for="ingredient in this.ingredients" :value="{id: ingredient.id, name: ingredient.name}">
                 {{ capitalizeFirstLetter(ingredient.name) }}
               </option>
@@ -62,7 +41,8 @@
           </div>
           <br>
           <div class="container">
-            <input class="btn btn-primary"  type="button" value="Ausgewählte Zutat hinzufügen:" @click="saveSelectedIngredient()">
+            <input class="btn btn-primary" type="button" value="Ausgewählte Zutat hinzufügen:"
+                   @click="saveSelectedIngredient()">
           </div>
           <br>
           <div v-for="ingredient in this.selectedIngredients" :value="ingredient.id" class="container">
@@ -74,7 +54,7 @@
               <div class="col-sm-3 container">
                 <label class="visually-hidden" for="specificSizeInputGroupUsername"></label>
                 <div class="input-group">
-                  <input :name="ingredient.id" class="form-control"  type="number" required>
+                  <input :name="ingredient.id" class="form-control" required type="number">
                 </div>
               </div>
               <br>
@@ -98,7 +78,8 @@
       </form>
       <br>
       <div class="container">
-        <button  class="btn btn-primary" type="submit" @click.prevent="postRecipe()">Rezept speichern</button>
+        <button class="btn btn-primary" type="submit" @click.prevent="postRecipe()" style="margin-right: 10px">Rezept speichern</button>
+        <button class="btn btn-danger" type="reset" @click="reset()">Reset</button>
       </div>
       <br>
     </form>
@@ -118,7 +99,7 @@ export default {
       selectedIngredientsRecipes: [],
       nameField: '',
       instructionsField: '',
-      servingsField: '',
+      servingsField: 1,
       durationField: '',
       isVeganField: '',
       returnedRecipeObject: ''
@@ -134,15 +115,16 @@ export default {
     saveSelectedIngredient () {
       if (!this.selectedIngredients.map(ingredient => ingredient.id).includes(this.selectedIngredient.id) && this.selectedIngredient.name != null) {
         this.selectedIngredients.push(this.selectedIngredient)
+        this.selectedIngredient = ''
       }
     },
     postRecipe () {
-      if(this.validate()){
+      if (this.validate()) {
         this.getRecipeIngredientInputs()
         const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes'
         const data = {
           name: this.nameField,
-          prepTime: this.durationField.toString().concat(':00'),
+          prepTime: '00:00:00',
           servings: this.servingsField,
           instructions: this.instructionsField
 
@@ -166,7 +148,6 @@ export default {
       }
 
 
-
     },
     postRecipeIngredients (selectedIngredientsRecipes, returnedRecipeObject, ingredients) {
       selectedIngredientsRecipes.forEach(ingredientRecipe => {
@@ -183,7 +164,7 @@ export default {
           recipeEntity: {
             id: returnedRecipeObject.id,
             name: returnedRecipeObject.name,
-            prepTime: returnedRecipeObject.prepTime,
+            prepTime: '00:00:00',
             servings: returnedRecipeObject.servings,
             instructions: returnedRecipeObject.instructions
           },
@@ -237,6 +218,15 @@ export default {
       const form = document.getElementById('recipe-create-form')
       form.classList.add('was-validated')
       return form.checkValidity()
+    },
+    reset () {
+        this.selectedIngredient = ''
+        this.selectedIngredients = []
+        this.selectedIngredientsRecipes = []
+        this.nameField = ''
+        this.instructionsField = ''
+        this.servingsField = 1
+        this.durationField = ''
     }
   },
   mounted () {

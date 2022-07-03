@@ -33,12 +33,8 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
-
-
   <br>
 
 
@@ -69,7 +65,13 @@
      </div>
    </div>
 
-    <input type="text" v-model="searchCrit" placeholder="Zutaten durchsuchen..." />
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <div class="container" >
+          <input  class="form-control" type="text" v-model="searchCrit" placeholder="Zutaten suchen..." />
+        </div>
+      </div>
+    </div>
 
     <br>
     <div class="container">
