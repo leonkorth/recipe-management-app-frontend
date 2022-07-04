@@ -18,7 +18,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  //background-color: $bg-main;
+  background-color: $bg-main;
 }
 br {
   display: block;
@@ -36,30 +36,39 @@ h1 {
 input {
   margin: 10px;
 }
-
-nav {
-  padding: 30px;
-  &.a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
 a{
+
   &.navbar-brand {
     color: darkslategrey;
     font-weight: bold;
+    &:hover {
+    color: #203636;
+    }
   }
   &.nav-link {
-    color: darkslategrey;
+    color: $nav-text;
+    &:hover {
+      color: $nav-text-hover;
+    }
   }
   &.router-link-exact-active {
-    color: #42b983;
+    color: darkslategrey;
+    font-weight: 530;
+    &:hover {
+      color: $nav-text-hover;
+    }
+    &:focus {
+      color: $nav-text-hover;
+    }
   }
 }
+nav {
+  padding: 30px;
+  background-color: $bg-nav;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+
 
 button.btn {
   background-color: $button;
@@ -72,6 +81,13 @@ button.btn {
     background: #6ea157;
     border-color: $bg-main;
     box-shadow: none !important;
+  }
+  &.btn-danger {
+    background-color: $button-warning;
+    border-color: $button-warning-border;
+    &:hover {
+      background-color: #d13d11;
+    }
   }
 }
 .logo{
