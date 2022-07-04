@@ -2,7 +2,7 @@
 
   <button @click="getData()" type="button" class="btn btn-primary">Preis für {{ingName}} berechnen </button>
 
-  <h3>Preis: {{ this.price}} {{this.unit}}</h3>
+  <h3>Preis: {{ this.price}} {{this.unit}} pro {{this.weightPerServing.amount}}{{this.weightPerServing.unit}}</h3>
 
 </template>
 
@@ -14,7 +14,8 @@ export default {
     return {
       id: '',
       price: '',
-      unit: ''
+      unit: '',
+      weightPerServing: ''
 
 
     }
@@ -62,6 +63,7 @@ export default {
         .then(result => {
           this.price = result.estimatedCost.value
           this.unit = result.estimatedCost.unit
+          this.weightPerServing = result.nutrition.weightPerServing
         })
         .catch(error => console.log('error', error))
     }
