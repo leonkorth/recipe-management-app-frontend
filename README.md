@@ -1,6 +1,8 @@
-https://recipe-management-app-frontend.herokuapp.com/recipes
+[![CI](https://github.com/leonkorth/recipe-management-app-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/leonkorth/recipe-management-app-frontend/actions/workflows/ci.yml)
 
 # recipe-management-app-frontend
+https://recipe-management-app-frontend.herokuapp.com/about
+
 The frontend for our recipe management app from Webtechnologien. Contains a simple UI to interact with recipes and ingredients. 
 
 ## Usage
