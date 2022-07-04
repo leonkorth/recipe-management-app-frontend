@@ -35,9 +35,22 @@ h1 {
 
 input {
   margin: 10px;
+  &.btn {
+    background-color: $button;
+    border-color: $button-border;
+    &:hover {
+      background: #6ea157;
+      border-color: $bg-main;
+    }
+    &:focus {
+      background: #6ea157;
+      border-color: $bg-main;
+      box-shadow: none !important;
+    }
+  }
 }
-a{
 
+a{
   &.navbar-brand {
     color: darkslategrey;
     font-weight: bold;
